@@ -1,9 +1,5 @@
 FROM debian:12
 
-#WORKDIR srcs/requirements/nginx/
-
-#COPY
-
 RUN apt update && apt install nginx -y
 
 RUN mkdir -p /etc/nginx/tls && apt install openssl -y \
@@ -21,7 +17,3 @@ RUN chown -R www-data:www-data /var/www/html;
 CMD ["nginx", "-g", "daemon off;"]
 
 EXPOSE 443
-
-
-#USER
-
