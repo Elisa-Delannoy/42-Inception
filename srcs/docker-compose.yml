@@ -1,0 +1,39 @@
+
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    # environment:
+    # volumes:
+    # depends_on:
+    restart: always
+
+  mariadb:
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    # environment:
+    # volumes:
+    # depends_on:
+    restart: always
+
+#   wordpress:
+#     build: ./requirements/wordpress
+#     env_file:
+#       - ./.env
+#     environment:
+#     volumes:
+#     depends_on:
+
+# networks:
+
+volumes:
+  mariadb_data:
+
+
+
+
