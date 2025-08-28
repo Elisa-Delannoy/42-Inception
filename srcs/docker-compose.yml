@@ -1,4 +1,4 @@
-
+# version: '3.8'
 
 services:
   nginx:
@@ -12,6 +12,8 @@ services:
 
   mariadb:
     build: ./requirements/mariadb
+    ports:
+      - "3306:3306"
     env_file:
       - .env
     volumes:
