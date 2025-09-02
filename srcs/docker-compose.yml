@@ -5,10 +5,14 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
-    # environment:
-    # volumes:
-    # depends_on:
+    depends_on:
+    - wordpress
+    - mariadb
     restart: always
+    networks:
+      inception:
+    volumes:
+      - wordpress_data:/var/www/html
 
   mariadb:
     build: ./requirements/mariadb
@@ -18,24 +22,28 @@ services:
       - .env
     volumes:
       - mariadb_data:/var/lib/mysql
-    # environment:
-    # volumes:
-    # depends_on:
     restart: always
+    networks:
+      inception:
 
-#   wordpress:
-#     build: ./requirements/wordpress
-#     env_file:
-#       - ./.env
-#     environment:
-#     volumes:
-#     depends_on:
+  wordpress:
+    build: ./requirements/wordpress
+    env_file:
+      - ./.env
+    ports:
+      - "9000:9000"
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+    restart: always
+    networks:
+      inception:
 
-# networks:
+networks:
+  inception:
 
 volumes:
   mariadb_data:
-
-
-
+  wordpress_data:
 

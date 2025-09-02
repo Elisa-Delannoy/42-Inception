@@ -30,5 +30,6 @@ echo "Stop mariadb"
 mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
 wait $pid
 
-echo "Start new mariadb with pqssword and network"
-exec mysqld_safe
+echo "Start new mariadb with password and network"
+exec mysqld_safe --datadir="$DATADIR"
+
