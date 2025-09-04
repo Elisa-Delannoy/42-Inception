@@ -28,14 +28,6 @@ COPY conf/initwordpress.sh  /initwordpress.sh
 
 RUN chmod +x /initwordpress.sh
 
-
-
-# RUN chown -R www-data:www-data /var/www
-
-# USER www-data
-
-# WORKDIR /var/www/html
-
 EXPOSE 9000
 
 ENTRYPOINT ["/initwordpress.sh"]

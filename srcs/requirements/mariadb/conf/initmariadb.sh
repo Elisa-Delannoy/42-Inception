@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-DATADIR="/var/lib/mysql" 
+DATADIR="/var/lib/mysql"
+ 
 echo "Init mariadb without password"
 mysql_install_db --user=mysql --datadir="$DATADIR"
 
@@ -15,7 +16,6 @@ until mysqladmin ping --silent; do
 done
 
 echo "Database initialisation"
-
 mysql -u root <<-EOSQL
   ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
   CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';

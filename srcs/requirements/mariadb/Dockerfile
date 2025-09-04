@@ -11,13 +11,3 @@ RUN chmod +x /initmariadb.sh
 EXPOSE 3306
 
 ENTRYPOINT ["/initmariadb.sh"]
-# CMD ["mysqld"]
-
-
-
-
-# RUN
-
-# USER
-
-# CMD
