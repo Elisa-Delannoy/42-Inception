@@ -10,7 +10,7 @@ services:
     networks:
       inception:
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
 
   mariadb:
     build: ./requirements/mariadb
@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     restart: always
     networks:
       inception:
@@ -31,7 +31,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/html
     depends_on:
       - mariadb
     restart: always
@@ -48,7 +48,7 @@ volumes:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "/home/eelanno/data/mariadb"
+      device: "/home/edelanno/data/mariadb"
   wordpress:
     driver: local
     driver_opts:
