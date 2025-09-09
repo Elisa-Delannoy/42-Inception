@@ -16,9 +16,9 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN mkdir -p /var/www/html
 
 RUN wget https://fr.wordpress.org/wordpress-6.3.1-fr_FR.tar.gz -O /tmp/wordpress.tar.gz \
-    && tar -xzf /tmp/wordpress.tar.gz -C /var/www/ \
-    && mv /var/www/wordpress /var/www/html \
+    && tar -xzf /tmp/wordpress.tar.gz -C /var/www/html --strip-components=1 \
     && rm /tmp/wordpress.tar.gz
+
 
 RUN chown -R www-data:www-data /var/www/html
 
