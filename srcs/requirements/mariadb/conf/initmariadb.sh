@@ -15,18 +15,15 @@ if [ -d "$DATADIR/mysql" ]; then
     sleep 1
   done
 
-  mysql -u root <<-EOSQL
-  ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
-  FLUSH PRIVILEGES;
+  if ! mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "USE ${MYSQL_DATABASE};" 2>/dev/null; then
+    echo "Database initialisation"
+    mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<-EOSQL
+      CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
+      CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+      GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
+      FLUSH PRIVILEGES;
 EOSQL
-
-  echo "Database initialisation"
-  mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<-EOSQL
-    CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;
-    CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-    GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '${MYSQL_USER}'@'%';
-    FLUSH PRIVILEGES;
-EOSQL
+  fi
   
   echo "Stop mariadb"
   mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
