@@ -8,7 +8,6 @@ if [ -f /var/lib/mysql/.mariadb_initialized ]; then
   exec mysqld_safe --datadir="$DATADIR"
 else
   echo "Mariadb initialisation"
-  touch /var/lib/mysql/.mariadb_initialized
   mysql_install_db --user=mysql --datadir="$DATADIR"
   
   echo "Start mariadb without network"
@@ -34,6 +33,8 @@ EOSQL
   echo "Stop mariadb"
   mysqladmin -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
   wait $pid
+  
+  touch /var/lib/mysql/.mariadb_initialized
   
   echo "Start new mariadb with password and network"
   exec mysqld_safe --datadir="$DATADIR" --skip-name-resolve
