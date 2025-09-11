@@ -15,7 +15,7 @@ if [ -d "$DATADIR/mysql" ]; then
     sleep 1
   done
 
-  if ! mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "USE ${MYSQL_DATABASE};" 2>/dev/null; then
+  if [! mysql -u root -p"${MYSQL_ROOT_PASSWORD}" -e "USE ${MYSQL_DATABASE};" 2>/dev/null]; then
     echo "Database initialisation"
     mysql -u root -p"${MYSQL_ROOT_PASSWORD}" <<-EOSQL
       CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;

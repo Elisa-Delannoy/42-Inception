@@ -6,11 +6,11 @@ services:
     depends_on:
     - wordpress
     - mariadb
+    volumes:
+      - wordpress:/var/www/html
     restart: always
     networks:
       inception:
-    volumes:
-      - wordpress:/var/www/html
 
   mariadb:
     build: ./requirements/mariadb
@@ -30,16 +30,17 @@ services:
       - ./.env
     ports:
       - "9000:9000"
-    volumes:
-      - wordpress:/var/www/html
     depends_on:
       - mariadb
+    volumes:
+      - wordpress:/var/www/html
     restart: always
     networks:
       inception:
 
 networks:
   inception:
+
 volumes:
   mariadb:
     driver: local
@@ -47,6 +48,7 @@ volumes:
       type: "none"
       o: "bind"
       device: "/home/edelanno/data/mariadb"
+      
   wordpress:
     driver: local
     driver_opts:

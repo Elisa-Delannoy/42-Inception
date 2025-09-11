@@ -22,7 +22,7 @@ else
       --allow-root
 fi
 
-if ! wp core is-installed --allow-root; then
+if [ ! wp core is-installed --allow-root ]; then
   echo "Wordpress installation"
   wp core install \
       --url=https://edelanno.42.fr \

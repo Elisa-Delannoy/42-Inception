@@ -1,7 +1,5 @@
 COMPOSE_FILE=./srcs/docker-compose.yml
 
-#"docker stop $(docker ps -qa);docker rm $(docker ps -qa); docker rmi -f $(docker images -qa);docker volume rm $(docker volume ls -q);docker network rm $(docker network ls -q) 2>/dev/null"
-
 down:
 	docker compose -f $(COMPOSE_FILE) down
 
@@ -24,7 +22,6 @@ set_volumes:
 	sudo chmod -R 755 /home/edelanno/data/wordpress
 	sudo chown -R 999:999 /home/edelanno/data/mariadb
 	sudo chmod -R 755 /home/edelanno/data/mariadb
-
 
 clean:
 	if [ -d "/home/edelanno/data/wordpress" ]; then \
