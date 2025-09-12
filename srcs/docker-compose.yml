@@ -3,6 +3,7 @@ services:
     build: ./requirements/nginx
     ports:
       - "443:443"
+    image: nginx
     depends_on:
     - wordpress
     - mariadb
@@ -16,6 +17,7 @@ services:
     build: ./requirements/mariadb
     ports:
       - "3306:3306"
+    image: mariadb
     env_file:
       - .env
     volumes:
@@ -30,6 +32,7 @@ services:
       - ./.env
     ports:
       - "9000:9000"
+    image: wordpress
     depends_on:
       - mariadb
     volumes:
